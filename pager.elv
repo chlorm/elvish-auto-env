@@ -29,8 +29,13 @@ fn get {
     put $pager
 }
 
-fn set {
-    local:pager = (get)
+fn set [&static=$nil]{
+    local:pager = $nil
+    if (not (eq $static $nil)) {
+        pager = $static
+    } else {
+        pager = (get)
+    }
     set-env PAGER $pager
     set-env MANPAGER $pager
 

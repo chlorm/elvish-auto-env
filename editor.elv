@@ -177,8 +177,13 @@ fn get {
     put $path
 }
 
-fn set {
-    local:editor = (get)
+fn set [&static=$nil]{
+    local:editor = $nil
+    if (not (eq $static $nil)) {
+        editor = $static
+    } else {
+        editor = (get)
+    }
     set-env EDITOR $editor
     set-env VISUAL $editor
 }
