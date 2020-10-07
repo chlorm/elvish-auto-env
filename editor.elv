@@ -15,6 +15,7 @@
 
 use str
 use github.com/chlorm/elvish-stl/list
+use github.com/chlorm/elvish-stl/os
 
 
 # TODO: simplify to only true statements
@@ -104,7 +105,7 @@ local:editors = [
 # keys of the `editors` map above.
 # EXCLUDED_EDITORS is a comma separated list of editor commands.
 fn get {
-    local:has-display = (bool ?(get-env DISPLAY >/dev/null))
+    local:has-display = (bool ?(get-env DISPLAY >$os:null))
 
     local:defaults = [
         'vscode'
