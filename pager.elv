@@ -18,19 +18,19 @@ use github.com/chlorm/elvish-stl/utils
 
 
 fn get {
-    local:pagers = [
+    pagers = [
         'less'
         'most'
         'more'
     ]
 
-    local:pager = (utils:get-preferred-cmd 'PREFERRED_PAGERS' $pagers)
+    pager = (utils:get-preferred-cmd 'PREFERRED_PAGERS' $pagers)
 
     put $pager
 }
 
 fn set [&static=$nil]{
-    local:pager = $nil
+    pager = $nil
     if (not (eq $static $nil)) {
         pager = $static
     } else {

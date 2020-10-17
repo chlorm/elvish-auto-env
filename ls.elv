@@ -21,7 +21,7 @@ fn get {
 }
 
 fn set [&static=$nil]{
-    local:d = $nil
+    d = $nil
     if (not (eq $static $nil)) {
         d = $static
     } else {

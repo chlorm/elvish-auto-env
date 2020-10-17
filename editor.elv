@@ -19,7 +19,7 @@ use github.com/chlorm/elvish-stl/os
 
 
 # TODO: simplify to only true statements
-local:editors = [
+EDITORS = [
     &atom=[
         &term=$false
         &gui=$true
@@ -105,42 +105,41 @@ local:editors = [
 # keys of the `editors` map above.
 # EXCLUDED_EDITORS is a comma separated list of editor commands.
 fn get {
-    local:has-display = (bool ?(get-env DISPLAY >$os:null))
+    hasDisplay = (bool ?(get-env DISPLAY >$os:NULL))
 
-    local:defaults = [
+    default = [
         'vscode'
         'vim'
         'vi'
     ]
 
-    local:preferred = $defaults
+    preferred = $default
     try {
         preferred = [ (str:split ',' (get-env PREFERRED_EDITORS)) ]
     } except _ { }
 
-    local:cmds = [ ]
-    local:args = [&]
-    for local:i $defaults {
-        if $has-display {
-            if (not $editors[$i][gui]) {
+    cmds = [ ]
+    cmdArgs = [&]
+    for i $preferred {
+        if $hasDisplay {
+            if (not $EDITORS[$i][gui]) {
                 continue
             }
             try {
-                args[$i] = $editors[$i][gui-args]
+                cmdArgs[$i] = $EDITORS[$i][gui-args]
             } except { }
         } else {
-            if (not $editors[$i][term]) {
+            if (not $EDITORS[$i][term]) {
                 continue
             }
             try {
-                args[$i] = $editors[$i][term-args]
+                cmdArgs[$i] = $EDITORS[$i][term-args]
             } except { }
         }
 
         # Lookup alternate commands if any
-        local:tmp = [ ]
         try {
-            tmp = $editors[$i][cmds]
+            tmp = $EDITORS[$i][cmds]
             cmds = [ $@cmds $@tmp ]
         } except _ { }
 
@@ -148,16 +147,16 @@ fn get {
         cmds = [ $@cmds $i ]
     }
 
-    local:excluded = [ ]
+    excluded = [ ]
     try {
         excluded = [ (str:split ',' (get-env EXCLUDED_EDITORS)) ]
     } except _ { }
-    for local:x $excluded {
-        cmds = (list:drop $cmds $x)
+    for exclude $excluded {
+        cmds = (list:drop $cmds $exclude)
     }
 
-    local:path = ''
-    for local:i $cmds {
+    path = $nil
+    for i $cmds {
         try {
             path = (search-external $i)
         } except _ {
@@ -166,12 +165,12 @@ fn get {
         try {
             # FIXME: no way to override args
             #        Maybe EDITOR_<editor>_ARGS env var?
-            path = $path' '(str:join ' ' $args[$i])
+            path = $path' '(str:join ' ' $cmdArgs[$i])
         } except _ { }
         break
     }
 
-    if (==s $path '') {
+    if (eq $path $nil) {
         fail 'No command found in '(to-string $cmds)', install one or set PREFERRED_EDITORS'
     }
 
@@ -179,7 +178,7 @@ fn get {
 }
 
 fn set [&static=$nil]{
-    local:editor = $nil
+    editor = $nil
     if (not (eq $static $nil)) {
         editor = $static
     } else {
