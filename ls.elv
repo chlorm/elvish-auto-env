@@ -21,13 +21,13 @@ fn get {
 }
 
 fn set [&static=$nil]{
-    d = $nil
+    var d = $nil
     if (not (eq $static $nil)) {
-        d = $static
+        set d = $static
     } else {
         # Don't fail on systems without `dircolors`.
         try {
-            d = (get)
+            set d = (get)
         } except e { echo $e[reason] >&2 }
     }
     if (not (eq $d $nil)) {

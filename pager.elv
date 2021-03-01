@@ -18,23 +18,23 @@ use github.com/chlorm/elvish-stl/utils
 
 
 fn get {
-    pagers = [
+    var pagers = [
         'less'
         'most'
         'more'
     ]
 
-    pager = (utils:get-preferred-cmd 'PREFERRED_PAGERS' $pagers)
+    var pager = (utils:get-preferred-cmd 'PREFERRED_PAGERS' $pagers)
 
     put $pager
 }
 
 fn set [&static=$nil]{
-    pager = $nil
+    var pager = $nil
     if (not (eq $static $nil)) {
-        pager = $static
+        set pager = $static
     } else {
-        pager = (get)
+        set pager = (get)
     }
     set-env PAGER $pager
     set-env MANPAGER $pager
