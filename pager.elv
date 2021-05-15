@@ -36,24 +36,24 @@ fn set [&static=$nil]{
     } else {
         set pager = (get)
     }
-    set-env PAGER $pager
-    set-env MANPAGER $pager
+    set-env 'PAGER' $pager
+    set-env 'MANPAGER' $pager
 
     if (==s (path:basename $pager) 'less') {
-        set-env LESS '--RAW-CONTROL-CHARS'
-        set-env LESSCHARSET 'utf-8'
-        unset-env LESS_IS_MORE
-        set-env LESS_TERMCAP_mb (tput blink; tput setaf 3)
-        set-env LESS_TERMCAP_md (tput bold; tput setaf 6)
-        set-env LESS_TERMCAP_me (tput sgr0)
-        set-env LESS_TERMCAP_so (tput smso; tput setaf 8; tput setab 3)
-        set-env LESS_TERMCAP_se (tput sgr0; tput rmso)
-        set-env LESS_TERMCAP_us (tput smul; tput setaf 3)
-        set-env LESS_TERMCAP_ue (tput sgr0; tput rmul)
-        set-env LESS_TERMCAP_mr (tput rev)
-        set-env LESS_TERMCAP_mh (tput dim)
+        set-env 'LESS' '--RAW-CONTROL-CHARS'
+        set-env 'LESSCHARSET' 'utf-8'
+        unset-env 'LESS_IS_MORE'
+        set-env 'LESS_TERMCAP_mb' (e:tput 'blink'; e:tput 'setaf' 3)
+        set-env 'LESS_TERMCAP_md' (e:tput 'bold'; e:tput 'setaf' 6)
+        set-env 'LESS_TERMCAP_me' (e:tput 'sgr0')
+        set-env 'LESS_TERMCAP_so' (e:tput 'smso'; e:tput 'setaf' 8; e:tput 'setab' 3)
+        set-env 'LESS_TERMCAP_se' (e:tput 'sgr0'; e:tput 'rmso')
+        set-env 'LESS_TERMCAP_us' (e:tput 'smul'; e:tput 'setaf' 3)
+        set-env 'LESS_TERMCAP_ue' (e:tput 'sgr0'; e:tput 'rmul')
+        set-env 'LESS_TERMCAP_mr' (e:tput 'rev')
+        set-env 'LESS_TERMCAP_mh' (e:tput 'dim')
 
         # some terminals don't understand SGR escape sequences
-        set-env GROFF_NO_SGR 1
+        set-env 'GROFF_NO_SGR' 1
     }
 }

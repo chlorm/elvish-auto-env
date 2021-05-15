@@ -105,7 +105,7 @@ var EDITORS = [
 # keys of the `editors` map above.
 # EXCLUDED_EDITORS is a comma separated list of editor commands.
 fn get {
-    var hasDisplay = (bool ?(get-env DISPLAY >$os:NULL))
+    var hasDisplay = (bool ?(get-env 'DISPLAY' >$os:NULL))
 
     var default = [
         'vscode'
@@ -115,31 +115,31 @@ fn get {
 
     var preferred = $default
     try {
-        set preferred = [ (str:split ',' (get-env PREFERRED_EDITORS)) ]
+        set preferred = [ (str:split ',' (get-env 'PREFERRED_EDITORS')) ]
     } except _ { }
 
     var cmds = [ ]
     var cmdArgs = [&]
     for i $preferred {
         if $hasDisplay {
-            if (not $EDITORS[$i][gui]) {
+            if (not $EDITORS[$i]['gui']) {
                 continue
             }
             try {
-                set cmdArgs[$i] = $EDITORS[$i][gui-args]
+                set cmdArgs[$i] = $EDITORS[$i]['gui-args']
             } except { }
         } else {
-            if (not $EDITORS[$i][term]) {
+            if (not $EDITORS[$i]['term']) {
                 continue
             }
             try {
-                set cmdArgs[$i] = $EDITORS[$i][term-args]
+                set cmdArgs[$i] = $EDITORS[$i]['term-args']
             } except { }
         }
 
         # Lookup alternate commands if any
         try {
-            var tmp = $EDITORS[$i][cmds]
+            var tmp = $EDITORS[$i]['cmds']
             set cmds = [ $@cmds $@tmp ]
         } except _ { }
 
@@ -149,7 +149,7 @@ fn get {
 
     var excluded = [ ]
     try {
-        set excluded = [ (str:split ',' (get-env EXCLUDED_EDITORS)) ]
+        set excluded = [ (str:split ',' (get-env 'EXCLUDED_EDITORS')) ]
     } except _ { }
     for exclude $excluded {
         set cmds = (list:drop $cmds $exclude)
@@ -184,6 +184,6 @@ fn set [&static=$nil]{
     } else {
         set editor = (get)
     }
-    set-env EDITOR $editor
-    set-env VISUAL $editor
+    set-env 'EDITOR' $editor
+    set-env 'VISUAL' $editor
 }

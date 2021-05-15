@@ -17,7 +17,7 @@ use github.com/chlorm/elvish-stl/regex
 
 
 fn get {
-    put (regex:find "'(.*)'" [ (e:dircolors -b) ][0])
+    put (regex:find "'(.*)'" [ (e:dircolors '-b') ][0])
 }
 
 fn set [&static=$nil]{
@@ -28,12 +28,12 @@ fn set [&static=$nil]{
         # Don't fail on systems without `dircolors`.
         try {
             set d = (get)
-        } except e { echo $e[reason] >&2 }
+        } except e { echo $e['reason'] >&2 }
     }
     if (not (eq $d $nil)) {
-        set-env LS_COLORS $d
+        set-env 'LS_COLORS' $d
     }
     # BSD
-    set-env CLICOLOR 1
-    set-env LSCOLORS 'ExGxFxdxCxDhDxaBadaCeC'
+    set-env 'CLICOLOR' 1
+    set-env 'LSCOLORS' 'ExGxFxdxCxDhDxaBadaCeC'
 }
