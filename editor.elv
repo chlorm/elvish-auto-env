@@ -93,6 +93,10 @@ var EDITORS = [
             'code-insiders'
             'code'
         ]
+        &gui-args=[
+            '--new-window'
+            '--wait'
+        ]
     ]
     &yi=[
         &term=$true
