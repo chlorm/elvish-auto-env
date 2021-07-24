@@ -104,6 +104,19 @@ var EDITORS = [
     ]
 ]
 
+# Create a map of editor name to alternate commands
+fn -alt-cmd-map {
+    var editorMap = [&]
+    for i [ (keys $EDITORS) ] {
+        if (has-key $EDITORS[$i] 'cmds') {
+            for cmd $EDITORS[$i]['cmds'] {
+                set editorMap[$cmd] = $i
+            }
+        }
+    }
+    put $editorMap
+}
+
 # Returns the first preferred editor found.
 # PREFERRED_EDITORS is a comma separated list of editors as listed in the
 # keys of the `editors` map above.
@@ -159,6 +172,8 @@ fn get {
         set cmds = (list:drop $cmds $exclude)
     }
 
+    var commandMap = (-alt-cmd-map)
+
     var path = $nil
     for i $cmds {
         try {
@@ -167,6 +182,9 @@ fn get {
             continue
         }
         try {
+            if (has-key $commandMap $i) {
+                set i = $commandMap[$i]
+            }
             # FIXME: no way to override args
             #        Maybe EDITOR_<editor>_ARGS env var?
             set path = $path' '(str:join ' ' $cmdArgs[$i])
