@@ -203,10 +203,8 @@ fn get {
 }
 
 fn set [&static=$nil]{
-    var editor = $nil
-    if (not (eq $static $nil)) {
-        set editor = $static
-    } else {
+    var editor = $static
+    if (eq $editor $nil) {
         set editor = (get)
     }
     set-env 'EDITOR' $editor

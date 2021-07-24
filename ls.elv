@@ -21,10 +21,8 @@ fn get {
 }
 
 fn set [&static=$nil]{
-    var d = $nil
-    if (not (eq $static $nil)) {
-        set d = $static
-    } else {
+    var d = $static
+    if (eq $static $nil) {
         # Don't fail on systems without `dircolors`.
         try {
             set d = (get)

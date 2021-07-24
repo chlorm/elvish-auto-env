@@ -30,10 +30,8 @@ fn get {
 }
 
 fn set [&static=$nil]{
-    var pager = $nil
-    if (not (eq $static $nil)) {
-        set pager = $static
-    } else {
+    var pager = $static
+    if (eq $static $nil) {
         set pager = (get)
     }
     set-env 'PAGER' $pager
