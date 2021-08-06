@@ -24,7 +24,6 @@
 use str
 use github.com/chlorm/elvish-stl/io
 use github.com/chlorm/elvish-stl/os
-use github.com/chlorm/elvish-stl/path
 use github.com/chlorm/elvish-stl/utils
 use github.com/chlorm/elvish-util-wrappers/gnome-keyring-daemon
 use github.com/chlorm/elvish-util-wrappers/gpg-agent
