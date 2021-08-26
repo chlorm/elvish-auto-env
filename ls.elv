@@ -14,10 +14,11 @@
 
 
 use github.com/chlorm/elvish-stl/regex
+use github.com/chlorm/elvish-stl/wrap
 
 
 fn get {
-    put (regex:find "'(.*)'" [ (e:dircolors '-b') ][0])
+    put (regex:find "'(.*)'" (wrap:cmd-out 'dircolors' '-b'))
 }
 
 fn set [&static=$nil]{
