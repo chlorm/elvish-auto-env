@@ -78,7 +78,7 @@ fn cache-read {
 
 # NOTE: This is only meant as a fallback if the agent isn't running. It is
 #       recommended to start the needed agents with your service manager.
-fn start-manually [agent] {
+fn start-manually [agent]{
     if (==s $s-gnome-keyring $agent) {
         $gnome-keyring:start
     } elif (==s $s-gpg-agent $agent) {
