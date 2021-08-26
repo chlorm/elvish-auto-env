@@ -26,7 +26,7 @@ use github.com/chlorm/elvish-stl/io
 use github.com/chlorm/elvish-stl/os
 use github.com/chlorm/elvish-stl/utils
 use github.com/chlorm/elvish-stl/wrap
-use github.com/chlorm/elvish-util-wrappers/gnome-keyring-daemon
+use github.com/chlorm/elvish-util-wrappers/gnome-keyring
 use github.com/chlorm/elvish-util-wrappers/gpg-agent
 use github.com/chlorm/elvish-util-wrappers/ssh-agent
 use github.com/chlorm/elvish-xdg/xdg
