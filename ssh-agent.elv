@@ -29,10 +29,10 @@ use github.com/chlorm/elvish-stl/wrap
 use github.com/chlorm/elvish-util-wrappers/gnome-keyring
 use github.com/chlorm/elvish-util-wrappers/gpg-agent
 use github.com/chlorm/elvish-util-wrappers/ssh-agent
-use github.com/chlorm/elvish-xdg/xdg
+use github.com/chlorm/elvish-xdg/xdg-dirs
 
 
-var CACHE_DIR = (xdg:get-dir 'XDG_RUNTIME_DIR')'/agent-auto'
+var CACHE_DIR = (xdg-dirs:runtime-dir)'/agent-auto'
 var CACHE_SOCKET = $CACHE_DIR'/socket'
 var CACHE_PID = $CACHE_DIR'/pid'
 
