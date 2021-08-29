@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+use platform
 use str
 use github.com/chlorm/elvish-stl/list
 use github.com/chlorm/elvish-stl/os
@@ -122,7 +123,13 @@ fn -alt-cmd-map {
 # keys of the `editors` map above.
 # EXCLUDED_EDITORS is a comma separated list of editor commands.
 fn get {
-    var hasDisplay = (bool ?(get-env 'DISPLAY' >$os:NULL))
+    var hasDisplay = $false
+    if $platform:is-windows {
+        # Assume Windows is only headless over SSH
+        set hasDisplay = (bool ?(get-env 'SSH_CLIENT' >$os:NULL))
+    } else {
+        set hasDisplay = (bool ?(get-env 'DISPLAY' >$os:NULL))
+    }
 
     var default = [
         'vscode'
