@@ -17,6 +17,7 @@ use platform
 use str
 use github.com/chlorm/elvish-stl/list
 use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-stl/path
 
 
 # TODO: simplify to only true statements
@@ -187,7 +188,7 @@ fn get {
     var path = $nil
     for i $cmds {
         try {
-            set path = (search-external $i)
+            set path = (path:escape (search-external $i))
         } except _ {
             continue
         }
