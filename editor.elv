@@ -126,7 +126,7 @@ fn get {
     var hasDisplay = $false
     if $platform:is-windows {
         # Assume Windows is only headless over SSH
-        set hasDisplay = (bool ?(get-env 'SSH_CLIENT' >$os:NULL))
+        set hasDisplay = (not (bool ?(get-env 'SSH_CLIENT' >$os:NULL)))
     } else {
         set hasDisplay = (bool ?(get-env 'DISPLAY' >$os:NULL))
     }
