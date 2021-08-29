@@ -18,7 +18,7 @@ use github.com/chlorm/elvish-stl/wrap
 
 
 fn get {
-    put (regex:find "'(.*)'" (wrap:cmd-out 'dircolors' '-b'))
+    put (regex:find "'(.*)'" [(wrap:cmd-out 'dircolors' '-b')][0])
 }
 
 fn set [&static=$nil]{
