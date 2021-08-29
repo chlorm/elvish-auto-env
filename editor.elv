@@ -188,7 +188,7 @@ fn get {
     var path = $nil
     for i $cmds {
         try {
-            set path = (path:escape (search-external $i))
+            set path = (path:escape &unix=$true (search-external $i))
         } except _ {
             continue
         }
