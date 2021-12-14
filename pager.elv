@@ -29,7 +29,7 @@ fn get {
     put $pager
 }
 
-fn set [&static=$nil]{
+fn set {|&static=$nil|
     var pager = $static
     if (eq $static $nil) {
         set pager = (get)

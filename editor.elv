@@ -210,7 +210,7 @@ fn get {
     put $path
 }
 
-fn set [&static=$nil]{
+fn set {|&static=$nil|
     var editor = $static
     if (eq $editor $nil) {
         set editor = (get)

@@ -21,7 +21,7 @@ fn get {
     put (regex:find "'(.*)'" [(wrap:cmd-out 'dircolors' '-b')][0])
 }
 
-fn set [&static=$nil]{
+fn set {|&static=$nil|
     var d = $static
     if (eq $static $nil) {
         # Don't fail on systems without `dircolors`.
