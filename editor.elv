@@ -141,9 +141,6 @@ fn get {
     var preferred = $default
     try {
         set preferred = [ (str:split ',' (get-env 'PREFERRED_EDITORS')) ]
-        if (==s $@preferred '') {
-            fail
-        }
     } except _ { }
 
     var cmds = [ ]
