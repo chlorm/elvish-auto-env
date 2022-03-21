@@ -27,7 +27,7 @@ fn set {|&static=$nil|
         # Don't fail on systems without `dircolors`.
         try {
             set d = (get)
-        } except e { echo $e['reason'] >&2 }
+        } catch e { echo $e['reason'] >&2 }
     }
     if (not (eq $d $nil)) {
         set-env 'LS_COLORS' $d

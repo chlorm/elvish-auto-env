@@ -141,7 +141,7 @@ fn get {
     var preferred = $default
     try {
         set preferred = [ (str:split ',' (get-env 'PREFERRED_EDITORS')) ]
-    } except _ { }
+    } catch _ { }
 
     var cmds = [ ]
     var cmdArgs = [&]
@@ -152,21 +152,21 @@ fn get {
             }
             try {
                 set cmdArgs[$i] = $EDITORS[$i]['gui-args']
-            } except { }
+            } catch { }
         } else {
             if (not $EDITORS[$i]['term']) {
                 continue
             }
             try {
                 set cmdArgs[$i] = $EDITORS[$i]['term-args']
-            } except { }
+            } catch { }
         }
 
         # Lookup alternate commands if any
         try {
             var tmp = $EDITORS[$i]['cmds']
             set cmds = [ $@cmds $@tmp ]
-        } except _ { }
+        } catch _ { }
 
         # Add self
         set cmds = [ $@cmds $i ]
@@ -175,7 +175,7 @@ fn get {
     var excluded = [ ]
     try {
         set excluded = [ (str:split ',' (get-env 'EXCLUDED_EDITORS')) ]
-    } except _ { }
+    } catch _ { }
     for exclude $excluded {
         set cmds = (list:drop $cmds $exclude)
     }
@@ -186,7 +186,7 @@ fn get {
     for i $cmds {
         try {
             set path = (path:escape &unix=$true (search-external $i))
-        } except _ {
+        } catch _ {
             continue
         }
         try {
@@ -196,7 +196,7 @@ fn get {
             # FIXME: no way to override args
             #        Maybe EDITOR_<editor>_ARGS env var?
             set path = $path' '(str:join ' ' $cmdArgs[$i])
-        } except _ { }
+        } catch _ { }
         break
     }
 
