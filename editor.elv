@@ -13,11 +13,11 @@
 # limitations under the License.
 
 
-use platform
 use str
 use github.com/chlorm/elvish-stl/list
 use github.com/chlorm/elvish-stl/os
 use github.com/chlorm/elvish-stl/path
+use github.com/chlorm/elvish-stl/platform
 
 
 # TODO: simplify to only true statements
