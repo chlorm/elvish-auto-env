@@ -13,12 +13,12 @@
 # limitations under the License.
 
 
+use github.com/chlorm/elvish-stl/exec
 use github.com/chlorm/elvish-stl/regex
-use github.com/chlorm/elvish-stl/wrap
 
 
 fn get {
-    put (regex:find "'(.*)'" [(wrap:cmd-out 'dircolors' '-b')][0])
+    put (regex:find "'(.*)'" [(exec:cmd-out 'dircolors' '-b')][0])
 }
 
 fn set {|&static=$nil|
