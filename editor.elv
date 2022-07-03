@@ -203,7 +203,8 @@ fn get {
     }
 
     if (eq $path $nil) {
-        fail 'No command found in '(to-string $cmds)', install one or set PREFERRED_EDITORS'
+        var err = 'No command found in '(to-string $cmds)', install one or set PREFERRED_EDITORS'
+        fail $err
     }
 
     put $path
