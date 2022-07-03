@@ -19,7 +19,7 @@ use github.com/chlorm/elvish-stl/re
 
 
 fn get {
-    put (re:find "'(.*)'" [(exec:cmd-out 'dircolors' '-b')][0])
+    re:find "'(.*)'" [(exec:cmd-out 'dircolors' '-b')][0]
 }
 
 fn set {|&static=$nil|
