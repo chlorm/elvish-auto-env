@@ -13,12 +13,13 @@
 # limitations under the License.
 
 
+use github.com/chlorm/elvish-stl/env
 use github.com/chlorm/elvish-stl/exec
-use github.com/chlorm/elvish-stl/regex
+use github.com/chlorm/elvish-stl/re
 
 
 fn get {
-    put (regex:find "'(.*)'" [(exec:cmd-out 'dircolors' '-b')][0])
+    put (re:find "'(.*)'" [(exec:cmd-out 'dircolors' '-b')][0])
 }
 
 fn set {|&static=$nil|
@@ -30,9 +31,9 @@ fn set {|&static=$nil|
         } catch e { echo $e['reason'] >&2 }
     }
     if (not (eq $d $nil)) {
-        set-env 'LS_COLORS' $d
+        env:set 'LS_COLORS' $d
     }
     # BSD
-    set-env 'CLICOLOR' 1
-    set-env 'LSCOLORS' 'ExGxFxdxCxDhDxaBadaCeC'
+    env:set 'CLICOLOR' 1
+    env:set 'LSCOLORS' 'ExGxFxdxCxDhDxaBadaCeC'
 }

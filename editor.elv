@@ -13,11 +13,13 @@
 # limitations under the License.
 
 
-use str
+use github.com/chlorm/elvish-stl/env
 use github.com/chlorm/elvish-stl/list
+use github.com/chlorm/elvish-stl/map
 use github.com/chlorm/elvish-stl/os
 use github.com/chlorm/elvish-stl/path
 use github.com/chlorm/elvish-stl/platform
+use github.com/chlorm/elvish-stl/str
 
 
 # TODO: simplify to only true statements
@@ -109,8 +111,8 @@ var EDITORS = [
 # Create a map of editor name to alternate commands
 fn -alt-cmd-map {
     var editorMap = [&]
-    for i [ (keys $EDITORS) ] {
-        if (has-key $EDITORS[$i] 'cmds') {
+    for i [ (map:keys $EDITORS) ] {
+        if (map:has-key $EDITORS[$i] 'cmds') {
             for cmd $EDITORS[$i]['cmds'] {
                 set editorMap[$cmd] = $i
             }
@@ -127,9 +129,9 @@ fn get {
     var hasDisplay = $false
     if $platform:is-windows {
         # Assume Windows is only headless over SSH
-        set hasDisplay = (not (bool ?(get-env 'SSH_CLIENT' >$os:NULL)))
+        set hasDisplay = (not (bool ?(env:get'SSH_CLIENT' >$os:NULL)))
     } else {
-        set hasDisplay = (bool ?(get-env 'DISPLAY' >$os:NULL))
+        set hasDisplay = (bool ?(env:get'DISPLAY' >$os:NULL))
     }
 
     var default = [
@@ -140,7 +142,7 @@ fn get {
 
     var preferred = $default
     try {
-        set preferred = [ (str:split ',' (get-env 'PREFERRED_EDITORS')) ]
+        set preferred = [ (str:split ',' (env:get 'PREFERRED_EDITORS')) ]
     } catch _ { }
 
     var cmds = [ ]
@@ -174,7 +176,7 @@ fn get {
 
     var excluded = [ ]
     try {
-        set excluded = [ (str:split ',' (get-env 'EXCLUDED_EDITORS')) ]
+        set excluded = [ (str:split ',' (env:get 'EXCLUDED_EDITORS')) ]
     } catch _ { }
     for exclude $excluded {
         set cmds = (list:drop $cmds $exclude)
@@ -190,7 +192,7 @@ fn get {
             continue
         }
         try {
-            if (has-key $commandMap $i) {
+            if (map:has-key $commandMap $i) {
                 set i = $commandMap[$i]
             }
             # FIXME: no way to override args
@@ -212,6 +214,6 @@ fn set {|&static=$nil|
     if (eq $editor $nil) {
         set editor = (get)
     }
-    set-env 'EDITOR' $editor
-    set-env 'VISUAL' $editor
+    env:set 'EDITOR' $editor
+    env:set 'VISUAL' $editor
 }
