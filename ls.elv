@@ -15,6 +15,7 @@
 
 use github.com/chlorm/elvish-stl/env
 use github.com/chlorm/elvish-stl/exec
+use github.com/chlorm/elvish-stl/platform
 use github.com/chlorm/elvish-stl/re
 
 
@@ -23,6 +24,9 @@ fn get {
 }
 
 fn set {|&static=$nil|
+    if $platform:is-windows {
+        return
+    }
     var d = $static
     if (eq $static $nil) {
         # Don't fail on systems without `dircolors`.
