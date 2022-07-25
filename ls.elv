@@ -15,12 +15,19 @@
 
 use github.com/chlorm/elvish-stl/env
 use github.com/chlorm/elvish-stl/exec
+use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-stl/path
 use github.com/chlorm/elvish-stl/platform
 use github.com/chlorm/elvish-stl/re
 
 
 fn get {
-    re:find "'(.*)'" [(exec:cmd-out 'dircolors' '-b')][0]
+    var userConfig = [ ]
+    var userConfigFile = (path:join (path:home) '.dir_colors')
+    if (os:exists $userConfigFile) {
+        set userConfig = [ $userConfigFile ]
+    }
+    re:find "'(.*)'" [(exec:cmd-out 'dircolors' '-b' $@userConfig)][0]
 }
 
 fn set {|&static=$nil|
