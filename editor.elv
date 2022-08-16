@@ -135,9 +135,10 @@ fn get {
     }
 
     var default = [
-        'vscode'
+        'nvim'
         'vim'
         'vi'
+        'vscode'
     ]
 
     var preferred = $default
