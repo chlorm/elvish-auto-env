@@ -15,6 +15,7 @@
 
 use github.com/chlorm/elvish-stl/env
 use github.com/chlorm/elvish-stl/path
+use github.com/chlorm/elvish-stl/platform
 use github.com/chlorm/elvish-stl/utils
 
 
@@ -34,6 +35,9 @@ fn set {|&static=$nil|
     var pager = $static
     if (eq $static $nil) {
         set pager = (get)
+    }
+    if $platform:is-windows {
+        set pager = (path:escape-unixlike (path:unescape $pager))
     }
     env:set 'PAGER' $pager
     env:set 'MANPAGER' $pager
