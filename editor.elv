@@ -149,17 +149,11 @@ fn get {
     var cmds = [ ]
     var cmdArgs = [&]
     for i $preferred {
-        if $hasDisplay {
-            if (not $EDITORS[$i]['gui']) {
-                continue
-            }
+        if (and $hasDisplay $EDITORS[$i]['gui']) {
             try {
                 set cmdArgs[$i] = $EDITORS[$i]['gui-args']
             } catch { }
-        } else {
-            if (not $EDITORS[$i]['term']) {
-                continue
-            }
+        } elif $EDITORS[$i]['term'] {
             try {
                 set cmdArgs[$i] = $EDITORS[$i]['term-args']
             } catch { }
